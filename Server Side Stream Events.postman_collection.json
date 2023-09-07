@@ -1,0 +1,831 @@
+{
+	"info": {
+		"_postman_id": "280bb2ef-f134-46a0-a261-42aa952bcf1a",
+		"name": "Server Side Stream Events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13454727"
+	},
+	"item": [
+		{
+			"name": "create order via stream",
+			"item": [
+				{
+					"name": "Get Browser Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"browserId\", jsonData.ref);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1.2/browser/create.json?client_key={{username}}&message={}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"browser",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Identity Event (Link BrowserId to Guest)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"IDENTITY\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"homepage\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"email\" : email",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add to Cart Event",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"var product = {",
+									"    \"type\" : \"SHOE\",",
+									"    \"item_id\" : \"SHOE_1\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"price\" : 71.20,",
+									"    \"quantity\" : 1,",
+									"    \"product_id\" : \"RUNNER_EXTREME\"",
+									"}",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"ADD\",",
+									"    \"product\" : product,",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"product-details\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"var product = [",
+									"    {",
+									"        \"item_id\" : \"SHOE_1\",",
+									"        \"product_id\" : \"RUNNER_EXTREME\"",
+									"    }",
+									"]",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"CONFIRM\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"checkout\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"product\" : product",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checkout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"CHECKOUT\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"checkout\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"reference_id\": \"SHOE_837\",",
+									"    \"status\": \"PURCHASED\"",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checkout order",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"var moment = require('moment');",
+									"",
+									"pm.environment.set('currentdate', moment().format((\"YYYY-MM-DDTHH:MM:SSSZ\")));",
+									"",
+									"var currency = \"USD\"",
+									"var message = ",
+									"{",
+									"   \"type\":\"ORDER_CHECKOUT\",",
+									"   \"browser_id\":browser_id,",
+									"   \"channel\":\"WEB\",",
+									"   \"pos\":pointOfSale,",
+									"   \"language\":\"EN\",",
+									"   \"currency\":currency,",
+									"   \"page\":\"checkout page\",",
+									"   \"order\":{",
+									"      \"referenceId\":\"ORDER_\"+pm.environment.set(\"random_number\", _.random(1, 1000)),",
+									"      \"orderedAt\":moment,",
+									"      \"status\":\"PURCHASED\",",
+									"      \"currencyCode\":currency,",
+									"      \"price\":7.40,",
+									"      \"paymentType\":\"Card\",",
+									"      \"cardType\":\"Visa\",",
+									"      \"extensions\":[",
+									"         {",
+									"            \"name\":\"ext\",",
+									"            \"key\":\"default\",",
+									"            \"deliveryType\": \"home delivery\",",
+									"            \"allergies\":false",
+									"         }",
+									"      ],",
+									"      \"orderItems\":[",
+									"         {",
+									"            \"type\":\"BURGER\",",
+									"            \"referenceId\":\"REF_\"+pm.environment.set(\"random_number\", _.random(1, 1000)),",
+									"            \"orderedAt\":moment,",
+									"            \"status\":\"PURCHASED\",",
+									"            \"currencyCode\":currency,",
+									"            \"price\":7.40,",
+									"            \"name\":\"Bacon Double Cheese Burger\",",
+									"            \"productId\":\"BURGER_5\",",
+									"            \"quantity\":1,",
+									"            \"extensions\":[",
+									"               {",
+									"                  \"name\":\"ext\",",
+									"                  \"key\":\"default\",",
+									"                  \"extras\":\"['/onions'/,'/chillies'/]\"",
+									"               }",
+									"            ]",
+									"         }",
+									"      ]",
+									"   }",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Force Close",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"FORCE_CLOSE\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"checkout\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"FORCE_CLOSE\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"checkout\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1.Get Browser Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"browserId\", jsonData.ref);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1.2/browser/create.json?client_key={{username}}&message={}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1.2",
+						"browser",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{username}}"
+						},
+						{
+							"key": "message",
+							"value": "{}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Identity Event (Link BrowserId to Guest)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var browser_id = pm.environment.get(\"browserId\")",
+							"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+							"var email = pm.environment.get(\"email\")",
+							"",
+							"var message = {",
+							"    \"channel\" : \"WEB\",",
+							"    \"type\" : \"IDENTITY\",",
+							"    \"language\" : \"EN\",",
+							"    \"currency\" : \"USD\",",
+							"    \"pos\" : pointOfSale,",
+							"    \"browser_id\" : browser_id,",
+							"    \"email\" : email",
+							"}",
+							"",
+							"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{username}}"
+						},
+						{
+							"key": "message",
+							"value": "{{message}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. View",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var browser_id = pm.environment.get(\"browserId\")",
+							"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+							"",
+							"var message = {",
+							"    \"channel\" : \"WEB\",",
+							"    \"type\" : \"VIEW\",",
+							"    \"language\" : \"EN\",",
+							"    \"currency\" : \"USD\",",
+							"    \"page\" : \"homepage\",",
+							"    \"pos\" : pointOfSale,",
+							"    \"browser_id\" : browser_id",
+							"}",
+							"",
+							"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{username}}"
+						},
+						{
+							"key": "message",
+							"value": "{{message}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.Force Close (End Session)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var browser_id = pm.environment.get(\"browserId\")",
+							"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+							"var email = pm.environment.get(\"email\")",
+							"",
+							"",
+							"var message = {",
+							"    \"channel\" : \"WEB\",",
+							"    \"type\" : \"FORCE_CLOSE\",",
+							"    \"language\" : \"EN\",",
+							"    \"currency\" : \"EUR\",",
+							"    \"page\" : \"checkout\",",
+							"    \"pos\" : pointOfSale,",
+							"    \"browser_id\" : browser_id",
+							"}",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1.2",
+						"event",
+						"create.json"
+					],
+					"query": [
+						{
+							"key": "client_key",
+							"value": "{{username}}"
+						},
+						{
+							"key": "message",
+							"value": "{{message}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
