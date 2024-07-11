@@ -1,0 +1,5738 @@
+{
+	"info": {
+		"_postman_id": "ae96ee2e-bbdf-4fe2-bd85-0a6b274b2260",
+		"name": "Sitecore CDP & Personalize",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13454727"
+	},
+	"item": [
+		{
+			"name": "Steam API",
+			"item": [
+				{
+					"name": "ORDER_CHECKOUT",
+					"item": [
+						{
+							"name": "3.Checkout order",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":today,",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"EUR\",",
+											"      \"price\":7.40,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"BURGER\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":today,",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":7.40,",
+											"            \"name\":\"Bacon Cheese Burger\",",
+											"            \"productId\":\"BURGER_5\",",
+											"            \"quantity\":1",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":today,",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"EUR\",",
+											"      \"price\":14.40,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"BURGER\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":today,",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":7.40,",
+											"            \"name\":\"Bacon Cheese Burger\",",
+											"            \"productId\":\"BURGER_5\",",
+											"            \"quantity\":1",
+											"         },",
+											"         {",
+											"            \"type\":\"BURGER\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":today,",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":7.00,",
+											"            \"name\":\"Cheese Burger\",",
+											"            \"productId\":\"BURGER_6\",",
+											"            \"quantity\":1",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order Copy 2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":today,",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"EUR\",",
+											"      \"price\":740000,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"FIXED_MORTGAGE\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":today,",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":740000,",
+											"            \"name\":\"5 Year Fixed\",",
+											"            \"productId\":\"MORTGAGE_1\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"interest_rate\": \"3.45\",",
+											"                    \"end_of_term\": \"2022-05-21\"",
+											"                }",
+											"            ]",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order - insurance",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":today,",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"EUR\",",
+											"      \"price\":160.00,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"CAR_INSURANCE\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":today,",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":160.00,",
+											"            \"name\":\"RC + Mini Omnium\",",
+											"            \"productId\":\"CAR_INSURANCE_1\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"PolicyType\": \"Car Insurance\",",
+											"                    \"Key Cover Insurance\": false,",
+											"                    \"Days to renewal\": 14,",
+											"                    \"Auto-Renew\": false,",
+											"                    \"PolicyID\": \"2342389345\",",
+											"                    \"Breakdown Assistance\": true",
+											"                }",
+											"            ]",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order - pillow",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"USD\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":today,",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"USD\",",
+											"      \"price\":14.99,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\": \"default\",",
+											"                    \"collection\":\"Hampton Retreat\",",
+											"                    \"category\":\"Home and Furniture\",",
+											"                    \"materials\": \"cotton\",",
+											"                    \"dimentions\": \"16 inch\"",
+											"                }",
+											"            ],",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"DECORATIVE_PILLOW\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":today,",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"USD\",",
+											"            \"price\":14.99,",
+											"            \"name\":\"Family Chaos Embroidered Pillow\",",
+											"            \"productId\":\"851415\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"collection\":\"Hampton Retreat\",",
+											"                    \"category\":\"Home and Furniture\",",
+											"                    \"materials\": \"cotton\",",
+											"                    \"dimentions\": \"16 inch\"",
+											"                }",
+											"            ]",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order - rental property",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":\"2023-02-17T10:42:20.210Z\",",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"GBP\",",
+											"      \"price\":867.00,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"extensions\": [",
+											"            {",
+											"                \"name\":\"ext\",",
+											"                \"key\":\"default\",",
+											"                \"internetIncluded\": true,",
+											"                \"cancellationPolicy\": \"Non-refundable\",",
+											"                \"securityDeposit\": 800,",
+											"                \"tenancyStart\": \"2023-02-17T00:00:00.000Z\",",
+											"                \"tenancyEnd\": \"2024-12-31T00:00:00.000Z\",",
+											"                \"roomType\": \"Double Room\",",
+											"                \"numberOfBedrooms\": 4,",
+											"                \"numberOfBathrooms\": 2,",
+											"                \"doorLock\": true,",
+											"",
+											"            }",
+											"      ],",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"APPARTMENT\",",
+											"            \"referenceId\":\"REF_609509\",",
+											"            \"orderedAt\":\"2023-02-17T10:42:20.210Z\",",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"GBP\",",
+											"            \"price\":867.00,",
+											"            \"name\":\"Cosy double bedroom close to Masthouse Terrace Pier\",",
+											"            \"productId\":\"LONDON_APARTMENT\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"tenancyStart\": \"2023-02-17T00:00:00.000Z\",",
+											"                    \"tenancyEnd\": \"2024-12-31T00:00:00.000Z\",",
+											"                    \"roomType\": \"Double Room\",",
+											"                    \"numberOfBedrooms\": 4,",
+											"                    \"numberOfBathrooms\": 2,",
+											"                    \"doorLock\": true,",
+											"",
+											"                }",
+											"            ]",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order - coats",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":\"2022-02-17T10:42:20.210Z\",",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"EUR\",",
+											"      \"price\":100.00,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"JUMPER\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":\"2021-02-17T10:42:20.210Z\",",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":35.00,",
+											"            \"name\":\"Cotton Rich Textured Crew Neck Jumper\",",
+											"            \"productId\":\"T380184\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"category\": \"knitwear jumper\",",
+											"                    \"color\": \"blue\",",
+											"                    \"size\": \"medium\"",
+											"                }",
+											"            ]",
+											"         },",
+											"         {",
+											"            \"type\":\"COAT\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":\"2021-02-17T10:42:20.210Z\",",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":65.00,",
+											"            \"name\":\"Cotton Rich Stormwear™ Car Coat\",",
+											"            \"productId\":\"T591002C\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"category\": \"coats jackets\",",
+											"                    \"color\": \"navy\",",
+											"                    \"size\": \"12\"",
+											"                }",
+											"            ]",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order - bet",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":\"2022-02-17T10:42:20.210Z\",",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"EUR\",",
+											"      \"price\":100.00,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"BET\",",
+											"            \"referenceId\":\"REF_\"+random_number,",
+											"            \"orderedAt\":\"2023-08-28T16:07:43.923Z\",",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"EUR\",",
+											"            \"price\":5.00,",
+											"            \"name\":\"Leicester City vs Newcastle Utd\",",
+											"            \"productId\":\"T380184\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"teamName\":\"Leicester City\",",
+											"                    \"eventName\":\"Leicester City vs Newcastle Utd\",",
+											"                    \"odds\":\"5.14\",",
+											"                    \"betAmount\":\"1\"",
+											"                }",
+											"            ]",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Checkout order - Meal",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"pm.environment.set(\"random_number1\", _.random(1, 1000))",
+											"pm.environment.set(\"random_number2\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"var random_number1 = pm.environment.get(\"random_number1\")",
+											"var random_number2 = pm.environment.get(\"random_number2\")",
+											"",
+											"var moment = require('moment');",
+											"",
+											"pm.environment.set('currentdate', moment());",
+											"",
+											"var today = pm.environment.get(\"currentdate\")",
+											"",
+											"var message = ",
+											"",
+											"{",
+											"   \"type\":\"ORDER_CHECKOUT\",",
+											"   \"browser_id\":browser_id,",
+											"   \"channel\":\"WEB\",",
+											"   \"pos\":pointOfSale,",
+											"   \"language\":\"EN\",",
+											"   \"currency\":\"EUR\",",
+											"   \"page\":\"checkout page\",",
+											"   \"order\":{",
+											"      \"referenceId\":\"ORDER_\"+random_number,",
+											"      \"orderedAt\":\"2021-09-17T10:42:20.210Z\",",
+											"      \"status\":\"PURCHASED\",",
+											"      \"currencyCode\":\"USD\",",
+											"      \"price\":48.96,",
+											"      \"paymentType\":\"Card\",",
+											"      \"cardType\":\"Visa\",",
+											"      \"extensions\": [",
+											"        {",
+											"            \"name\":\"ext\",",
+											"            \"key\":\"default\",",
+											"            \"delivered\": \"no\",",
+											"            \"onSale\": \"false\"",
+											"            }",
+											"        ],",
+											"      \"orderItems\":[",
+											"         {",
+											"            \"type\":\"SEAFOOD\",",
+											"            \"referenceId\":\"REF_\"+random_number1,",
+											"            \"orderedAt\":\"2021-09-17T10:42:20.210Z\",",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"USD\",",
+											"            \"price\":22.49,",
+											"            \"name\":\"New York Strip Steak n' Shrimp Combo\",",
+											"            \"productId\":\"73144570\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"delivered\": \"no\",",
+											"                    \"onSale\": \"false\",",
+											"                    \"calories\": 870",
+											"                }",
+											"            ]",
+											"         },",
+											"         {",
+											"            \"type\":\"SIDE\",",
+											"            \"referenceId\":\"REF_\"+random_number2,",
+											"            \"orderedAt\":\"2021-09-17T10:42:20.210Z\",",
+											"            \"status\":\"PURCHASED\",",
+											"            \"currencyCode\":\"USD\",",
+											"            \"price\":22.49,",
+											"            \"name\":\"Loaded Mashed Potatoes\",",
+											"            \"productId\":\"309458895\",",
+											"            \"quantity\":1,",
+											"            \"extensions\": [",
+											"                {",
+											"                    \"name\":\"ext\",",
+											"                    \"key\":\"default\",",
+											"                    \"delivered\": \"no\",",
+											"                    \"onSale\": \"false\",",
+											"                    \"calories\": 320",
+											"                }",
+											"            ]",
+											"         }",
+											"      ]",
+											"   }",
+											"}",
+											"",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CHECKOUT",
+					"item": [
+						{
+							"name": "3a.Add FLIGHT",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"",
+											"var flight_segment= [",
+											"    {",
+											"            \"origin\": \"LUX\",",
+											"            \"destination\": \"LHR\",",
+											"            \"departure_date_time\": \"2022-09-19T11:00\",",
+											"            \"arrival_date_time\": \"2022-09-19T12:15\",",
+											"            \"flight_number\": \"1000\",",
+											"            \"carrier\": \"SA\",",
+											"            \"fare_class\": \"Business\",",
+											"            \"fare_family\": \"Business Plus\"",
+											"        },",
+											"        {",
+											"            \"origin\": \"LHR\",",
+											"            \"destination\": \"LUX\",",
+											"            \"departure_date_time\": \"2022-09-20T20:00\",",
+											"            \"arrival_date_time\": \"2022-09-20T22:15\",",
+											"            \"flight_number\": \"1000\",",
+											"            \"carrier\": \"SA\",",
+											"            \"fare_class\": \"Business\",",
+											"            \"fare_family\": \"Business Plus\"",
+											"    }",
+											"]",
+											"",
+											"var product = {",
+											"        \"type\": \"FLIGHT\",",
+											"        \"item_id\": \"FLIGHT_1\",",
+											"        \"name\": \"LUX-LHR Business Flight\",",
+											"        \"currency\": \"EUR\",",
+											"        \"price\": 200,",
+											"        \"product_id\": \"LUX-LHR|Business|BusinessPlus\",",
+											"        \"origin\": \"LUX\",",
+											"        \"destination\": \"LHR\",",
+											"        \"flight_type\": \"OW\",",
+											"        \"pax_type\": \"ADT\",",
+											"        \"quantity\": 1,",
+											"        \"flight_segment\": flight_segment",
+											"    }",
+											"",
+											"var message = {",
+											"    \"channel\": \"WEB\",",
+											"    \"type\": \"ADD\",",
+											"    \"language\": \"EN\",",
+											"    \"currency\": \"EUR\",",
+											"    \"page\": \"itinerary page\",",
+											"    \"pos\": pointOfSale,",
+											"    \"browser_id\": browser_id,",
+											"    \"product\": product",
+											"}",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3a.Add FERRY",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"",
+											"",
+											"var product = {",
+											"        \"type\": \"FERRY\",",
+											"        \"item_id\": \"FERRY_1\",",
+											"        \"name\": \"Ceuta to Algeciras\",",
+											"        \"currency\": \"EUR\",",
+											"        \"price\": 59,",
+											"        \"product_id\": \"Ceuta to Algeciras|Private Car\",",
+											"        \"origin\": \"Ceuta\",",
+											"        \"destination\": \"Algeciras\",",
+											"        \"flight_type\": \"OW\",",
+											"        \"pax_type\": \"ADT\",",
+											"        \"quantity\": 1",
+											"    }",
+											"",
+											"var message = {",
+											"    \"channel\": \"WEB\",",
+											"    \"type\": \"ADD\",",
+											"    \"language\": \"EN\",",
+											"    \"currency\": \"EUR\",",
+											"    \"page\": \"itinerary page\",",
+											"    \"pos\": pointOfSale,",
+											"    \"browser_id\": browser_id,",
+											"    \"product\": product",
+											"}",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3a.Add JUMPER",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"",
+											"",
+											"var product = {",
+											"        \"type\": \"SANDALS\",",
+											"        \"item_id\": \"SANDALS_1\",",
+											"        \"name\": \"Leather Studded Buckle Platform Clogs\",",
+											"        \"currency\": \"EUR\",",
+											"        \"price\": 55,",
+											"        \"product_id\": \"T025061\",",
+											"        \"quantity\": 1",
+											"    }",
+											"",
+											"var message = {",
+											"    \"channel\": \"WEB\",",
+											"    \"type\": \"ADD\",",
+											"    \"language\": \"EN\",",
+											"    \"currency\": \"EUR\",",
+											"    \"page\": \"product page\",",
+											"    \"pos\": pointOfSale,",
+											"    \"browser_id\": browser_id,",
+											"    \"product\": product",
+											"}",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3a.Add COAT",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"",
+											"var product = {",
+											"        \"type\": \"COAT\",",
+											"        \"item_id\": \"COAT_1\",",
+											"        \"name\": \"Cotton Rich Stormwear™ Car Coat\",",
+											"        \"currency\": \"EUR\",",
+											"        \"price\": 65,",
+											"        \"product_id\": \"T591002C\",",
+											"        \"quantity\": 1",
+											"    }",
+											"",
+											"var message = {",
+											"    \"channel\": \"WEB\",",
+											"    \"type\": \"ADD\",",
+											"    \"language\": \"EN\",",
+											"    \"currency\": \"EUR\",",
+											"    \"page\": \"product page\",",
+											"    \"pos\": pointOfSale,",
+											"    \"browser_id\": browser_id,",
+											"    \"product\": product",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3a.Add",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"var product = {",
+											"    \"type\" : \"BET\",",
+											"    \"item_id\" : \"ITEM_1\",",
+											"    \"currency\" : \"USD\",",
+											"    \"price\" : 7.20,",
+											"    \"quantity\" : 1,",
+											"    \"product_id\" : \"BET_1\",",
+											"    \"name\": \"Leicester City vs Newcastle Utd\"",
+											"}",
+											"",
+											"var message = {",
+											"    \"channel\" : \"WEB\",",
+											"    \"type\" : \"ADD\",",
+											"    \"product\" : product,",
+											"    \"language\" : \"EN\",",
+											"    \"currency\" : \"USD\",",
+											"    \"page\" : \"product-details\",",
+											"    \"pos\" : pointOfSale,",
+											"    \"browser_id\" : browser_id",
+											"}",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3b.Confirm",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"var product = [",
+											"    {",
+											"        \"item_id\" : \"BET_1\"",
+											"    }",
+											"]",
+											"",
+											"var message = {",
+											"    \"channel\" : \"WEB\",",
+											"    \"type\" : \"CONFIRM\",",
+											"    \"language\" : \"EN\",",
+											"    \"currency\" : \"EUR\",",
+											"    \"page\" : \"checkout\",",
+											"    \"pos\" : pointOfSale,",
+											"    \"browser_id\" : browser_id,",
+											"    \"product\" : product",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3c.Checkout",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var browser_id = pm.environment.get(\"browserId\")",
+											"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+											"var email = pm.environment.get(\"email\")",
+											"",
+											"pm.environment.set(\"random_number\", _.random(1, 1000))",
+											"",
+											"var random_number = pm.environment.get(\"random_number\")",
+											"",
+											"",
+											"var message = {",
+											"    \"channel\" : \"WEB\",",
+											"    \"type\" : \"CHECKOUT\",",
+											"    \"language\" : \"EN\",",
+											"    \"currency\" : \"EUR\",",
+											"    \"page\" : \"checkout\",",
+											"    \"pos\" : pointOfSale,",
+											"    \"browser_id\" : browser_id,",
+											"    \"reference_id\": \"ORDER_\"+random_number,",
+											"    \"status\": \"PURCHASED\"",
+											"}",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v1.2",
+										"event",
+										"create.json"
+									],
+									"query": [
+										{
+											"key": "client_key",
+											"value": "{{username}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "1.Get Browser Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"browserId\", jsonData.ref);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1.2/browser/create.json?client_key={{username}}&message={}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"browser",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.Force Close Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"FORCE_CLOSE\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"checkout\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Identity Event (Link BrowserId to Guest) Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"IDENTITY\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"USD\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"firstName\": \"Rob\",",
+									"    \"lastName\": \"Sutton\",",
+									"    \"email\":  \"rob.sutton@gmail.com\",",
+									"    \"identifiers\": [",
+									"        {",
+									"            \"provider\" : \"email\",",
+									"            \"id\" : \"rob.sutton@gmail.com\"",
+									"        }",
+									"    ]",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Force Close Event",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"FORCE_CLOSE\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"homepage\",",
+									"    \"pos\" : pointOfSale,",
+									"   \"browser_id\":browser_id",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Feedback",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"FEEDBACK\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"/\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"rating\" : 5",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WITHDRAWAL - ATM",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"SMS_CAMPAIGN\",",
+									"    \"type\" : \"CAMPAIGN_TRACKING\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"/\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"ext\": {",
+									"       \"campaignName\": \"Super League Sunday Lineup\"",
+									"    }",
+									"}",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEBIT TRANSACTION",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"CLICKED\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"homepage\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"channelTracking\": \"WEB\",",
+									"    \"posTracking\": pointOfSale,",
+									"    \"pageTracking\": \"homepage\",",
+									"    \"ext\": {",
+									"        \"channelTrackingExt\": \"WEB\",",
+									"        \"posTrackingExt\": pointOfSale,",
+									"    }",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREDIT TRANSACTION",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"MOBILE_APP\",",
+									"    \"type\" : \"CREDIT_TRANSACTION\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"/\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"ext\": {",
+									"        \"amount\" : 20000",
+									"    }",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"IDENTITY\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"USD\",",
+									"    \"page\" : \"homepage\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"identifiers\": [{",
+									"        \"provider\": \"Big_customer_ID\",",
+									"        \"id\": \"123\"",
+									"    }],",
+									"    \"ext\": {",
+									"        \"GA_ID\": \"456\"",
+									"    }",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Identity Event (Link BrowserId to Guest)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"var email = pm.environment.get(\"email\")",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"IDENTITY\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"homepage\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"email\": email,",
+									"    \"identifiers\": [",
+									"        {",
+									"            \"provider\": \"email\",",
+									"            \"id\": email",
+									"        }",
+									"    ]",
+									"    ",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Browser Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"browserId\", jsonData.ref);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1.2/browser/create.json?client_key={{username}}&message={}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"browser",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add to Cart Event",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = \"SpinBurger\"",
+									"",
+									"var product = {",
+									"    \"type\" : \"SHOE\",",
+									"    \"item_id\" : \"SHOE_2\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"price\" : 7.50,",
+									"    \"quantity\" : 1,",
+									"    \"product_id\" : \"SHOE\"",
+									"}",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"ADD\",",
+									"    \"product\" : product,",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"product-details\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"ext\": {",
+									"        \"details\": \"more details\"",
+									"    }",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = \"SpinBurger\"",
+									"",
+									"var product = [",
+									"    {",
+									"        \"item_id\" : \"BURGER_1\"",
+									"    },",
+									"    {",
+									"        \"item_id\" : \"BURGER_2\"",
+									"    }",
+									"]",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"CONFIRM\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"checkout\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"product\" : product",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checkout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = \"SpinBurger\"",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"CHECKOUT\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"checkout\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"reference_id\": \"ORDER_1\",",
+									"    \"status\": \"PURCHASED\"",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"VIEW\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"USD\",",
+									"    \"page\" : \"homepage\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. How can we help quiz",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"var message = {",
+									"    \"channel\" : \"WEB\",",
+									"    \"type\" : \"HOW_CAN_WE_HELP\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"USD\",",
+									"    \"page\" : \"homepage\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"ext\": {",
+									"         \"interest\": \"Protect What's Important\",",
+									"         \"protection\": \"30s\",",
+									"         \"startedSaving\": true",
+									"     }",
+									"}",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Geo Location Event - ATM Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var browser_id = pm.environment.get(\"browserId\")",
+									"var pointOfSale = pm.environment.get(\"PointOfSale\")",
+									"",
+									"",
+									"var message = {",
+									"    \"channel\" : \"ATM\",",
+									"    \"type\" : \"GEOLOCATION_DETAILS\",",
+									"    \"language\" : \"EN\",",
+									"    \"currency\" : \"EUR\",",
+									"    \"page\" : \"/\",",
+									"    \"pos\" : pointOfSale,",
+									"    \"browser_id\" : browser_id,",
+									"    \"latitude\" : 53.3421,",
+									"    \"longitude\" : -6.2389",
+									"}",
+									"",
+									"",
+									"postman.setEnvironmentVariable(\"message\", JSON.stringify(message));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/v1.2/event/create.json?client_key={{username}}&message={{message}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1.2",
+								"event",
+								"create.json"
+							],
+							"query": [
+								{
+									"key": "client_key",
+									"value": "{{username}}"
+								},
+								{
+									"key": "message",
+									"value": "{{message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Batch Import",
+			"item": [
+				{
+					"name": "Batch Import Copy",
+					"item": [
+						{
+							"name": "1. Pre-signed Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"uploadURL\", jsonData.location.href);",
+											"postman.setEnvironmentVariable(\"batchRef\", jsonData.ref);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"checksum\": \"7ac8d945ec4e47cbf7d6bb7fbb5c0b0b\",\n    \"size\": 365\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.boxever.com/v2/batches/380f7fe7-0d22-4fbb-abf6-d19960e6ca0e",
+									"protocol": "https",
+									"host": [
+										"api",
+										"boxever",
+										"com"
+									],
+									"path": [
+										"v2",
+										"batches",
+										"380f7fe7-0d22-4fbb-abf6-d19960e6ca0e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Upload File",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "x-amz-server-side-encryption",
+										"value": "AES256",
+										"type": "text"
+									},
+									{
+										"key": "Content-Md5",
+										"value": "esjZRexOR8v31rt/u1wLCw==",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "file",
+									"file": {
+										"src": "/Users/sao/aretha_order.json.gz"
+									}
+								},
+								"url": {
+									"raw": "{{uploadURL}}",
+									"host": [
+										"{{uploadURL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Check Status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.boxever.com/v2/batches/{{batchRef}}",
+									"protocol": "https",
+									"host": [
+										"api",
+										"boxever",
+										"com"
+									],
+									"path": [
+										"v2",
+										"batches",
+										"{{batchRef}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "REST APIs",
+			"item": [
+				{
+					"name": "Interactive Experiences",
+					"item": [
+						{
+							"name": "Calling Interactive API",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientKey\": \"{{username}}\",\n    \"channel\": \"WEB\",\n    \"language\": \"EN\",\n    \"currencyCode\": \"EUR\",\n    \"pointOfSale\": \"{{PointOfSale}}\",\n    \"friendlyId\":\"suggested_bet_homepage_web_mobile_test\",\n    \"identifiers\": {\n      \"provider\": \"email\",\n      \"id\": \"sarahoreilly205@gmail.com\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/callFlows",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"callFlows"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Calling Interactive API browser ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientKey\": \"{{username}}\",\n    \"channel\": \"WEB\",\n    \"language\": \"EN\",\n    \"currencyCode\": \"EUR\",\n    \"pointOfSale\": \"{{PointOfSale}}\",\n    \"friendlyId\":\"suggested_bet_homepage_web_mobile_test\",\n    \"browserId\": \"{{browserId}}\"\n} //231c5bce-9fdc-4abb-acab-63f0de73c7cf",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/callFlows",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"callFlows"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Calling Interactive API Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"clientKey\": \"{{username}}\",\n    \"channel\": \"MOBILE_APP\",\n    \"language\": \"EN\",\n    \"currencyCode\": \"USD\",\n    \"pointOfSale\": \"{{PointOfSale}}\",\n    \"friendlyId\":\"suggested_bet_homepage_web__mobile\",\n    \"browserId\": \"{{browserId}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/callFlows",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"callFlows"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Guest Data",
+					"item": [
+						{
+							"name": "Get Guest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"guest_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://api-engage-us.sitecorecloud.io/v2/orders/34bd99f0-b9b3-4f8c-aa63-be5369b2d3f2/extensions/ext?expand=true",
+									"protocol": "https",
+									"host": [
+										"api-engage-us",
+										"sitecorecloud",
+										"io"
+									],
+									"path": [
+										"v2",
+										"orders",
+										"34bd99f0-b9b3-4f8c-aa63-be5369b2d3f2",
+										"extensions",
+										"ext"
+									],
+									"query": [
+										{
+											"key": "expand",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Guest - Grace O'Malley",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}?expand=true",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"{{version}}",
+												"guests",
+												"{{guest_ref}}"
+											],
+											"query": [
+												{
+													"key": "expand",
+													"value": "extPropensities",
+													"disabled": true
+												},
+												{
+													"key": "expand",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Encoding",
+											"value": "gzip"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 04 Jul 2022 15:28:46 GMT"
+										},
+										{
+											"key": "Vary",
+											"value": "Accept-Encoding"
+										},
+										{
+											"key": "X-Robots-Tag",
+											"value": "noindex"
+										},
+										{
+											"key": "transfer-encoding",
+											"value": "chunked"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"email\": \"grace.omalley@boxever.com\",\n    \"emails\": [\n        \"grace.omalley@boxever.com\"\n    ],\n    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\",\n    \"ref\": \"d8cd5466-3b49-453c-8b51-f881e9677bb1\",\n    \"createdAt\": \"2016-08-15T10:41:02.086Z\",\n    \"modifiedAt\": \"2022-07-04T14:03:15.093Z\",\n    \"firstSeen\": \"2016-08-15T10:41:02.086Z\",\n    \"lastSeen\": \"2022-07-04T14:03:15.083Z\",\n    \"guestType\": \"customer\",\n    \"title\": \"Ms\",\n    \"firstName\": \"Grace\",\n    \"lastName\": \"O'Malley\",\n    \"gender\": \"female\",\n    \"dateOfBirth\": \"1975-01-01T00:00:00.000Z\",\n    \"nationality\": \"Irish\",\n    \"passportNumber\": \"PZ4R6312\",\n    \"passportExpiry\": \"2025-01-01T00:00:00.000Z\",\n    \"language\": \"EN\",\n    \"phoneNumbers\": [\n        \"0035386123456\",\n        \"00353834343\",\n        \"00353766433\",\n        \"00353123123312\",\n        \"00353234234234\",\n        \"0035331223123312\",\n        \"00353353876437797\",\n        \"00353353876437797Grace\",\n        \"00353+353876437797\",\n        \"0035334243242342\",\n        \"00353123\",\n        \"00353324234234\",\n        \"00353324234234234\",\n        \"003533423455\",\n        \"00353234234234234\",\n        \"0035332423432423\",\n        \"00353234234234223\",\n        \"00353343456423\",\n        \"0035330987552\",\n        \"003536343422556\",\n        \"00353343466433\",\n        \"00353345345345\",\n        \"00353453453453\",\n        \"00353323524243\",\n        \"003530876437797\",\n        \"003537534184193\",\n        \"003530035376437797\",\n        \"0035376437797\",\n        \"003531234567\",\n        \"0035345345345345\",\n        \"0035300353123\",\n        \"003531233456\",\n        \"00353342342552\",\n        \"0044876437797\",\n        \"003534234234234\",\n        \"00353342342342\",\n        \"003538612345\",\n        \"00353342423423\",\n        \"003530879061099\",\n        \"00353879061099\",\n        \"00353892576549\",\n        \"00353861234567\",\n        \"003533453453443\",\n        \"0035323234234\",\n        \"0035312345678\",\n        \"00353123456578\",\n        \"00353123455678\",\n        \"0035334234234234\",\n        \"003533453453453\",\n        \"0035356456456\"\n    ],\n    \"street\": [\n        \"The Burrow\",\n        \"Valley Way Avenue\"\n    ],\n    \"city\": \"Dublin\",\n    \"country\": \"IE\",\n    \"postCode\": \"D2\",\n    \"state\": \"Leinster\",\n    \"identityStatus\": \"customer\",\n    \"zipCode\": \"D2\",\n    \"extFacebookLikes\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/26afb609-03ba-5f57-b119-a27410cc1895\",\n                \"ref\": \"26afb609-03ba-5f57-b119-a27410cc1895\",\n                \"key\": \"228044500680154\",\n                \"createdAt\": \"2017-09-26T09:41:09.851Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:09.851Z\",\n                \"like\": \"Osmo\",\n                \"likedAtDate\": \"2016-10-15T13:51:06.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/275a25ea-bcfc-553e-b8cb-3376e95c1610\",\n                \"ref\": \"275a25ea-bcfc-553e-b8cb-3376e95c1610\",\n                \"key\": \"358958454164438\",\n                \"createdAt\": \"2017-09-26T09:41:12.075Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:12.075Z\",\n                \"like\": \"The Distinguished Gentleman's Ride\",\n                \"likedAtDate\": \"2017-05-27T20:21:54.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/321845cf-225b-59cf-ade2-7c24b5f25154\",\n                \"ref\": \"321845cf-225b-59cf-ade2-7c24b5f25154\",\n                \"key\": \"790479727640939\",\n                \"createdAt\": \"2017-09-26T09:41:08.464Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:08.464Z\",\n                \"like\": \"CrossFit Green\",\n                \"likedAtDate\": \"2016-07-11T20:00:12.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/369b65bf-0daf-55e8-9641-2cbe2605f3d7\",\n                \"ref\": \"369b65bf-0daf-55e8-9641-2cbe2605f3d7\",\n                \"key\": \"641722872529164\",\n                \"createdAt\": \"2017-09-26T09:41:08.882Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:08.882Z\",\n                \"like\": \"ER motorcycles\",\n                \"likedAtDate\": \"2016-08-08T14:34:24.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/58d56f10-c5be-5c7f-bfe9-d8a251a1a022\",\n                \"ref\": \"58d56f10-c5be-5c7f-bfe9-d8a251a1a022\",\n                \"key\": \"416662071877685\",\n                \"createdAt\": \"2017-09-26T09:41:13.388Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:13.388Z\",\n                \"like\": \"Kameleon Fitness\",\n                \"likedAtDate\": \"2017-09-22T05:25:36.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/6b85e0e3-eae8-5ed4-a46d-e0132fb4c495\",\n                \"ref\": \"6b85e0e3-eae8-5ed4-a46d-e0132fb4c495\",\n                \"key\": \"853721044663172\",\n                \"createdAt\": \"2017-09-26T09:41:11.558Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:11.558Z\",\n                \"like\": \"Isaac Jackman Shoe Repairs\",\n                \"likedAtDate\": \"2017-04-29T19:48:09.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/6cec2e86-a2a5-5f33-a3ae-bc5185b971e1\",\n                \"ref\": \"6cec2e86-a2a5-5f33-a3ae-bc5185b971e1\",\n                \"key\": \"59066302070\",\n                \"createdAt\": \"2017-09-26T09:41:06.780Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:06.780Z\",\n                \"like\": \"The Cuban Brothers\",\n                \"likedAtDate\": \"2016-01-05T21:00:11.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/aa421e70-d205-5ec5-a192-98bba7aec3c1\",\n                \"ref\": \"aa421e70-d205-5ec5-a192-98bba7aec3c1\",\n                \"key\": \"1795135194090395\",\n                \"createdAt\": \"2017-09-26T09:41:13.780Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:13.780Z\",\n                \"like\": \"Boxever Labs\",\n                \"likedAtDate\": \"2017-09-22T09:20:40.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/b6586102-e123-5570-82b6-85da1dc7c598\",\n                \"ref\": \"b6586102-e123-5570-82b6-85da1dc7c598\",\n                \"key\": \"537513969778672\",\n                \"createdAt\": \"2017-09-26T09:41:09.331Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:09.331Z\",\n                \"like\": \"The Feed\",\n                \"likedAtDate\": \"2016-10-13T03:46:32.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/d42f7a19-90f8-5447-8f00-e5f44703d6a4\",\n                \"ref\": \"d42f7a19-90f8-5447-8f00-e5f44703d6a4\",\n                \"key\": \"116276232173\",\n                \"createdAt\": \"2017-09-26T09:41:13.020Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:13.020Z\",\n                \"like\": \"Rugby World Cup\",\n                \"likedAtDate\": \"2014-11-14T17:03:32.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/d493f6ae-7ac8-5568-8ba0-15e59493a261\",\n                \"ref\": \"d493f6ae-7ac8-5568-8ba0-15e59493a261\",\n                \"key\": \"21751825648\",\n                \"createdAt\": \"2017-09-26T09:41:10.882Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:10.882Z\",\n                \"like\": \"Justin Trudeau\",\n                \"likedAtDate\": \"2017-01-29T08:39:57.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/dad86d86-3869-5366-9cc7-24191a2e582e\",\n                \"ref\": \"dad86d86-3869-5366-9cc7-24191a2e582e\",\n                \"key\": \"21129932961\",\n                \"createdAt\": \"2017-09-26T09:41:11.226Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:11.226Z\",\n                \"like\": \"Lisa Hannigan\",\n                \"likedAtDate\": \"2017-02-15T23:17:37.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/f0525022-6e68-5e7c-89d6-f0d49efb34f0\",\n                \"ref\": \"f0525022-6e68-5e7c-89d6-f0d49efb34f0\",\n                \"key\": \"191210857569894\",\n                \"createdAt\": \"2017-09-26T09:41:10.376Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:10.376Z\",\n                \"like\": \"3FE\",\n                \"likedAtDate\": \"2016-11-29T10:01:02.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/f1394641-e1a6-5687-9b38-4a3b2cb23d7c\",\n                \"ref\": \"f1394641-e1a6-5687-9b38-4a3b2cb23d7c\",\n                \"key\": \"1518327941806111\",\n                \"createdAt\": \"2017-09-26T09:41:07.903Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:07.903Z\",\n                \"like\": \"Sadhbh\",\n                \"likedAtDate\": \"2016-04-05T21:31:07.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/f5e2b0bf-e98e-58ac-b761-e8701ee880c2\",\n                \"ref\": \"f5e2b0bf-e98e-58ac-b761-e8701ee880c2\",\n                \"key\": \"624809180988785\",\n                \"createdAt\": \"2017-09-26T09:41:12.519Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:12.519Z\",\n                \"like\": \"Henry Pim\",\n                \"likedAtDate\": \"2017-07-03T06:37:42.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extFacebookLikes/fc2ac278-55d1-5492-b63e-4340ac50c003\",\n                \"ref\": \"fc2ac278-55d1-5492-b63e-4340ac50c003\",\n                \"key\": \"1546334288952202\",\n                \"createdAt\": \"2017-09-26T09:41:07.338Z\",\n                \"modifiedAt\": \"2017-09-26T09:41:07.338Z\",\n                \"like\": \"Stand Up for Equality\",\n                \"likedAtDate\": \"2016-01-30T12:18:43.000Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extServiceHistory\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extServiceHistory\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extServiceHistory/bff1b257-6e1b-50dd-aee5-5efe37733675\",\n                \"ref\": \"bff1b257-6e1b-50dd-aee5-5efe37733675\",\n                \"key\": \"BagDelayed\",\n                \"createdAt\": \"2019-03-13T11:11:19.540Z\",\n                \"modifiedAt\": \"2019-03-13T11:11:19.540Z\",\n                \"occuredAtDate\": \"2019-03-01T12:10:12.206Z\",\n                \"status\": \"Resolved\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extSurvey_3f7147484541099e841abf903962fe41\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extSurvey_3f7147484541099e841abf903962fe41\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extSurvey_3f7147484541099e841abf903962fe41/59aef6e4-3148-56dc-a3d5-3f6acade0d09\",\n                \"ref\": \"59aef6e4-3148-56dc-a3d5-3f6acade0d09\",\n                \"key\": \"ResponseData\",\n                \"createdAt\": \"2020-09-01T13:25:39.445Z\",\n                \"modifiedAt\": \"2020-09-01T13:25:39.445Z\",\n                \"sentiment_5\": \"postivive\",\n                \"sentiment_4\": \"negative\",\n                \"answer_2\": \"Extremely Satisfied\",\n                \"answer_1\": \"10\",\n                \"answer_4\": \"Great. I think all passengers should be required to wear masks!\",\n                \"answer_3\": \"Extremely Satisfied\",\n                \"answer_5\": \"Good. The regulations make me feel safe.\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extSurveys\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extSurveys\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extSurveys/a79a8872-56bd-5ba7-a63d-7fa8c9e0cfb0\",\n                \"ref\": \"a79a8872-56bd-5ba7-a63d-7fa8c9e0cfb0\",\n                \"key\": \"NPS\",\n                \"createdAt\": \"2019-03-15T13:20:58.677Z\",\n                \"modifiedAt\": \"2019-03-15T13:20:58.677Z\",\n                \"feedback\": \"It was all very easy!\",\n                \"score\": \"9\",\n                \"channel\": \"Website\",\n                \"submissionDate\": \"2019-03-15T13:25:00.000Z\",\n                \"category\": \"Promoter\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extLoyaltyPrograms\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extLoyaltyPrograms\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extLoyaltyPrograms/0f2f2f50-2490-51df-8d4a-3c5356941cd2\",\n                \"ref\": \"0f2f2f50-2490-51df-8d4a-3c5356941cd2\",\n                \"key\": \"Explorers\",\n                \"createdAt\": \"2019-03-13T11:11:37.363Z\",\n                \"modifiedAt\": \"2019-03-13T11:11:37.363Z\",\n                \"number\": \"E45344\",\n                \"tierExpiresDate\": \"2019-09-01T00:00:00.000Z\",\n                \"milesToNextTier\": 200,\n                \"signedUpDate\": \"2015-09-01T00:00:00.000Z\",\n                \"status\": \"Platinum\",\n                \"miles\": 19750,\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extWeather\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extWeather\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extWeather/baa88526-7517-518b-b524-7a59a508289b\",\n                \"ref\": \"baa88526-7517-518b-b524-7a59a508289b\",\n                \"key\": \"default\",\n                \"createdAt\": \"2018-09-03T11:21:23.222Z\",\n                \"modifiedAt\": \"2018-09-03T11:21:23.222Z\",\n                \"forcast\": \"Clouds\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extLocations\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extLocations\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extLocations/92b28839-3ede-54d5-badf-117f21092f5d\",\n                \"ref\": \"92b28839-3ede-54d5-badf-117f21092f5d\",\n                \"key\": \"default\",\n                \"createdAt\": \"2018-09-03T11:21:22.656Z\",\n                \"modifiedAt\": \"2018-09-03T11:21:22.656Z\",\n                \"cityName\": \"Dublin\",\n                \"countryCode\": \"IE\",\n                \"latitude\": \"53.3515264\",\n                \"countryName\": \"Ireland\",\n                \"longitude\": \"-6.2486453\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extSubscriptions\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extSubscriptions\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extSubscriptions/2edf8f59-4a4f-5e1d-b1f4-d3c53f902119\",\n                \"ref\": \"2edf8f59-4a4f-5e1d-b1f4-d3c53f902119\",\n                \"key\": \"CHROME_WEB_PUSH\",\n                \"createdAt\": \"2019-03-13T14:09:26.115Z\",\n                \"modifiedAt\": \"2019-03-13T14:09:26.115Z\",\n                \"subscription\": \"eyJlbmRwb2ludCI6Imh0dHBzOi8vZmNtLmdvb2dsZWFwaXMuY29tL2ZjbS9zZW5kL2M0OWtJWW5EcjI0OkFQQTkxYkV4WkZJaGh6Um1ZaG82M3JOQVVqb1NuU2lRdW1oM2k0amRqU3ludEY5NG95RkhSS2lFcFV3Zk9OXzlDcDRFb3ZUTUFmNG02Rm16WDE3WVNoY2NNTXE0d0hXMkFRMG1uV1ZnM0dOUExYQjRxbWJhVThyeUJxZWJvTDZ6dVNzU2lXc0hCVHI5IiwiZXhwaXJhdGlvblRpbWUiOm51bGwsImtleXMiOnsicDI1NmRoIjoiQkc3U1VDVTF4NVhWeWZKcDlhdUgtdDVmR3RLMWhxWDFOejBmcVk4S1dSaHlubGM1Q2JDZTJmbERmbThYb1k1cjdpUXVZTTVBY2xGR2w5TlZ4WHhYREs4IiwiYXV0aCI6ImNNT0hhcWduZkZ6MGg2dG1XZGVjYlEifX0=\",\n                \"expiresAt\": \"2019-04-12T14:09:25.888Z\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extwebFeedback\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extwebFeedback\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extwebFeedback/ceaa34e4-897b-5bda-bffa-7fc4901088d2\",\n                \"ref\": \"ceaa34e4-897b-5bda-bffa-7fc4901088d2\",\n                \"key\": \"feedback\",\n                \"createdAt\": \"2022-06-15T07:09:08.516Z\",\n                \"modifiedAt\": \"2022-06-15T07:09:08.516Z\",\n                \"catagory\": \"compliment\",\n                \"score\": \"5\",\n                \"feedbackDate\": \"2022-06-15T07:09:07.720Z\",\n                \"content\": \"afsdsdf\",\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    },\n    \"extPropensities\": {\n        \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extPropensities\",\n        \"items\": [\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extPropensities/52ce7544-e32f-57d8-800b-424cee53cf48\",\n                \"ref\": \"52ce7544-e32f-57d8-800b-424cee53cf48\",\n                \"key\": \"CollectionScores\",\n                \"createdAt\": \"2016-12-13T11:03:06.323Z\",\n                \"modifiedAt\": \"2016-12-13T11:03:06.323Z\",\n                \"holidayInn\": 0.58,\n                \"waterstones\": 0.98,\n                \"travelLodge\": 0.74,\n                \"graze.com\": 0.5,\n                \"shell\": 0.4,\n                \"marriott\": 0.96,\n                \"johnLewis\": 0.794,\n                \"bink\": 0.78,\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extPropensities/c0417e03-0677-55ff-8492-52653fe3272e\",\n                \"ref\": \"c0417e03-0677-55ff-8492-52653fe3272e\",\n                \"key\": \"BankProductScores\",\n                \"createdAt\": \"2017-05-04T10:22:04.189Z\",\n                \"modifiedAt\": \"2017-05-08T15:10:59.597Z\",\n                \"MortgagesScore\": 0.9465,\n                \"PersonalLoanScore\": 0.58621,\n                \"CreditCardScore\": 0.8979,\n                \"PensionScore\": 0.00186,\n                \"CarFinanceScore\": 0.7725,\n                \"HomeOwnerInsuranceScore\": 0.01522,\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extPropensities/c2c796e8-c803-501e-a55b-0897570e9280\",\n                \"ref\": \"c2c796e8-c803-501e-a55b-0897570e9280\",\n                \"key\": \"ARetailScores\",\n                \"createdAt\": \"2018-06-07T22:30:30.430Z\",\n                \"modifiedAt\": \"2018-06-07T22:30:30.430Z\",\n                \"Inspiration\": 0.1,\n                \"Returns\": 0.6,\n                \"Discount\": 0.1,\n                \"Asos Brand\": 0.76,\n                \"Outlet\": 0.4,\n                \"Fraud\": 0.1,\n                \"Premium Brand\": 0.9,\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            },\n            {\n                \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1/extPropensities/d668e520-d5cc-5509-8da1-33f7d52fd237\",\n                \"ref\": \"d668e520-d5cc-5509-8da1-33f7d52fd237\",\n                \"key\": \"ItemScores\",\n                \"createdAt\": \"2016-08-15T11:46:04.044Z\",\n                \"modifiedAt\": \"2016-08-15T11:46:04.044Z\",\n                \"Meal\": 0.1,\n                \"Bag\": 0.4,\n                \"Parking\": 0.1,\n                \"Upgrade\": 0.6,\n                \"Hotel\": 0.9,\n                \"guest\": {\n                    \"href\": \"https://api.boxever.com/v2/guests/d8cd5466-3b49-453c-8b51-f881e9677bb1\"\n                }\n            }\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Guest by Identifier",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"guest_ref\", jsonData.items[0].ref);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests?email=emily.roberts@gov.us&expand=true",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "emily.roberts@gov.us"
+										},
+										{
+											"key": "expand",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Guest by Identifier Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"guest_ref\", jsonData.items[0].ref);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests?email={{email}}&expand=true",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "{{email}}"
+										},
+										{
+											"key": "expand",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Guest",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\n\"gender\": \"male\",\n\"title\": \"Mr\",\n\"nationality\": \"American\",\n\"state\": \"Idaho\",\n\"postCode\": \"83814\"\n\n} ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"guest_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\t\t\"guestType\": \"customer\",\n\t\t\t\"firstName\": \"Amy\",\n            \"lastName\": \"Smith\",\n\t\t\t\"email\": \"amy.smith@mit.com\",\n\t\t\t\"identifiers\": [\n\t\t\t\t{\n\t\t\t\t\t\"provider\": \"email\",\n\t\t\t\t\t\"id\": \"amy.smith@mit.com\"\n                }\n\t\t\t]\n\t\t}\n\t\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Guest Data Extension ext",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"CLV\", _.random(1, 100))",
+											"",
+											"var segment = [\"Family Summer Traveller\", \"Business Weekday Traveller\", \"Platnium Membership\", \"Couples Retreat\", \"Offpeak Traveller\"];",
+											"",
+											"pm.environment.set('segment',segment);",
+											"",
+											"pm.environment.set(\"selectedSegment\", segment[_.random(0, 4)])"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"VIFP\": \"211\",\n                        \"vipMember\": true,\n                \"loyaltyTier\": \"level2\",\n                \"rewardBalance\": 412.25\n\n}    \n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extensions/ext1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extensions",
+										"ext1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext affinities",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"CLV\", _.random(1, 100))",
+											"",
+											"var segment = [\"Family Summer Traveller\", \"Business Weekday Traveller\", \"Platnium Membership\", \"Couples Retreat\", \"Offpeak Traveller\"];",
+											"",
+											"pm.environment.set('segment',segment);",
+											"",
+											"pm.environment.set(\"selectedSegment\", segment[_.random(0, 4)])"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ext1\",\n        \"collectionTopAffinityScore\": \"0.667\",\n        \"collectionAffinities\": \"{\\\"American Heritage\\\":\\\"0.0\\\",\\\"Celestial\\\":\\\"0.0\\\",\\\"Hampton Retreat\\\":\\\"0.667\\\",\\\"Nautical\\\":\\\"0.333\\\",\\\"Coastal\\\":\\\"0.0\\\"}\",\n        \"collectionTopAffinity\": \"Hampton Retreat\",\n        \"categoryTopAffinity\": \"Clothing & Accessories\",\n        \"genderTopAffinityScore\": \"0.667\",\n        \"sizeAffinities\": \"{\\\"6\\\":\\\"0.333\\\",\\\"XS\\\":\\\"0.333\\\",\\\"S\\\":\\\"0.333\\\"}\",\n        \"colorAffinities\": \"{\\\"Black\\\":\\\"0.667\\\",\\\"Purple\\\":\\\"0.333\\\"}\",\n        \"colorTopAffinityScore\": \"0.667\",\n        \"sizeTopAffinity\": \"XS\",\n        \"genderAffinities\": \"{\\\"Women\\\":\\\"0.667\\\",\\\"Men\\\":\\\"0.333\\\"}\",\n        \"categoryTopAffinityScore\": \"0.182\",\n        \"categoryAffinities\": \"{\\\"Clothing & Accessories \\\":\\\"0.182\\\",\\\"Home & Furniture\\\":\\\"0.091\\\",\\\"Food & Candy\\\":\\\"0.091\\\",\\\"Toys & Plush\\\":\\\"0.091\\\"}\",\n        \"sizeTopAffinityScore\": \"0.333\",\n        \"colorTopAffinity\": \"Black\",\n        \"genderTopAffinity\": \"Women\"\n\n}    \n\n\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extensions",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extensions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ext2\",\n    \"Web Personalisation\": \"Opt In\",\n    \"Email\": \"Opt In\",\n    \"SMS\": \"Opt In\",\n    \"Web Push\": \"Opt Out\",\n    \"Mobile Push\": \"Opt Out\"\n\n}    \n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extensions",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extensions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"default\",\n    \"Web Personalisation\": \"Opt In\",\n    \"Email\": \"Opt In\",\n    \"SMS\": \"Opt In\",\n    \"Web Push\": \"Opt Out\",\n    \"Mobile Push\": \"Opt Out\"\n}\n\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extOptInOptOut",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extOptInOptOut"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"default\",\n                \"additionalConsents\": \"[]\",\n                \"hasProductAccess\": true,\n                \"optedInForOffersNep\": false,\n                \"optedInForOffersEp\": false,\n                \"userEligibleForLoyaltyFnF\": false,\n                \"optin\": false,\n                \"favoriteTeam\": \"FT_OFI\",\n                \"mandatory_limits_set\": \"{currentGameVertical: true, exclusive_opap: true, nonexclusive_casino: true, nonexclusive_sportsbook: true}\",\n                \"accountVerificationState\": \"VERIFIED\",\n                \"hasPendingConsents\": false,\n                \"VIP\": true\n}\n\n\n\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extext",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extext"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "data extensions - for segments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"default\",\n    \"Web Personalisation\": \"Opt In\",\n    \"Email\": \"Opt In\",\n    \"SMS\": \"Opt In\",\n    \"Web Push\": \"Opt Out\",\n    \"Mobile Push\": \"Opt Out\"\n}\n\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extOptInOptOut",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extOptInOptOut"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Locate Guest Data Extensions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.items[0].href);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extensions/VoyagersClubMembership",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extensions",
+										"VoyagersClubMembership"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"guest_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n \"email\": \"scott.ryan@gmail.com\",\n            \"emails\": [\n                \"scott.ryan@gmail.com\"\n            ],\n            \"guestType\": \"customer\",\n            \"title\": \"Mr\",\n            \"firstName\": \"Scott\",\n            \"lastName\": \"Ryan\",\n            \"gender\": \"male\",\n            \"nationality\": \"Danish\",\n            \"language\": \"EN\",\n            \"identifiers\": [\n                {\n                    \"provider\": \"email\",\n                    \"id\": \"scott.ryan@gmail.com\"\n                },\n                {\n                    \"provider\": \"customerNumber\",\n                    \"id\": \"9843587734\"\n                }\n            ],\n            \"identityStatus\": \"customer\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"details\",\n    \"sign_up_date\": \"2020-02-17\",\n    \"expiry_date\": \"2021-02-17\",\n    \"tier\": \"Silver\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extAnnualPass",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extAnnualPass"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Guest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"email\", jsonData.emails[0]);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}?expand=true",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}"
+									],
+									"query": [
+										{
+											"key": "expand",
+											"value": "extPropensities",
+											"disabled": true
+										},
+										{
+											"key": "expand",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"CLV\", _.random(1, 100))",
+											"",
+											"var segment = [\"Family Summer Traveller\", \"Business Weekday Traveller\", \"Platnium Membership\", \"Couples Retreat\", \"Offpeak Traveller\"];",
+											"",
+											"pm.environment.set('segment',segment);",
+											"",
+											"pm.environment.set(\"selectedSegment\", segment[_.random(0, 4)])"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"propensity\",\n    \"JEANS\": 0.91, \n    \"SUITS\" :  0.90,\n    \"HOODIES\" :   0.85,\n    \"COATS\":  0.81,\n    \"TROUSERS\" :  0.77,\n    \"UNDERWEAR\" :  0.71,\n    \"LOUNGEWEAR\" : 0.65,\n    \"SPORTSWEAR\": 0.58,\n    \"TOPS\": 0.44,\n    \"KNITWEAR\": 0.43,\n    \"DRESSES\": 0.32\n}    ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/d32f1c64-c81a-4387-ad52-a210df9c969c/extExt",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"d32f1c64-c81a-4387-ad52-a210df9c969c",
+										"extExt"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext Copy 3",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"Loyalty\",\n    \"number\": \"E45344\",\n    \"tierExpiresDate\": \"2024-03-14\",\n    \"milesToNextTier\": 200,\n    \"signedUpDate\": \"2023-05-04\",\n    \"points\": 457,\n    \"tier\": \"Platinum\"\n}    \n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/v2/guests/{{guest_ref}}/extext1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v2",
+										"guests",
+										"{{guest_ref}}",
+										"extext1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext Copy 4",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"default\",\n    \"Marketing Preference Phone\": \"opt-out\",\n    \"Marketing Preference Sms\": \"out-out\",\n    \"Marketing Preference Email\": \"opt-in\",\n    \"Marketing Preference App-push\": \"opt-in\"\n}    \n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extext1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extext1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Guest Data Extension ext Copy 5",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.guest.href);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"profileType\": \"individual\"\n\n}  \n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/guests/{{guest_ref}}/extensions/ext1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"guests",
+										"{{guest_ref}}",
+										"extensions",
+										"ext1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order Data",
+					"item": [
+						{
+							"name": "1.Create Order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"order_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n      \"referenceId\":\"98237498\",\n      \"orderedAt\":\"2023-09-17T10:42:20.210Z\",\n      \"status\":\"PURCHASED\",\n      \"currencyCode\":\"USD\",\n      \"price\":591.00,\n      \"paymentType\":\"Card\",\n      \"cardType\":\"Visa\"\n    }\n\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order Consumers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n    {\n        \"title\": \"Mr\",\n        \"firstName\": \"Steve\",\n        \"lastName\": \"O'Reilly\",\n        \"gender\": \"male\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders/{{order_ref}}/consumers",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders",
+										"{{order_ref}}",
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order Consumers with ref",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"Ms\",\n    \"firstName\": \"Sarah\",\n    \"lastName\": \"O'Reilly\",\n    \"gender\": \"female\",\n    \"guest\": {\n        \"href\": \"https://app-cdp-eu.sitecorecloud.io/#/guests/929fc64f-d11d-4fa8-bf8f-6a50a3601903\"\n    }\n}\n\n   ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders/{{order_ref}}/consumers",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders",
+										"{{order_ref}}",
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Order Consumers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"href\": \"https://api-engage-eu.sitecorecloud.io/v2/orderConsumers/79fff386-6fab-4a9c-97a2-bce29c90a59e\",\n    \"ref\": \"79fff386-6fab-4a9c-97a2-bce29c90a59e\",\n    \"order\": {\n        \"href\": \"https://api-engage-eu.sitecorecloud.io/v2/orders/f8271625-09c7-4aaa-adfb-eb4447d0c967\"\n    },\n    \"title\": \"Ms\",\n    \"firstName\": \"Sarah\",\n    \"lastName\": \"O'Reilly\",\n    \"gender\": \"female\",\n    \"guest\": {\n        \"href\": \"https://api-engage-eu.sitecorecloud.io/v2/guests/e28f9773-1cda-45d1-a861-79276a2c6483\"\n    },\n    \"createdAt\": \"2023-09-04T16:55:07.333Z\",\n    \"modifiedAt\": \"2023-09-04T16:55:07.333Z\",\n    \"orderItems\": {}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders/{{order_ref}}/consumers",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders",
+										"{{order_ref}}",
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3.Update Order with Consumers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n    {\n  \"firstName\": \"Rob\",\n  \"lastName\": \"Sutton\",\n  \"identifiers\": [\n    {\n      \"provider\": \"email\",\n      \"id\": \"rob.sutton@gmail.com\"\n    }\n  ]\n    }\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-engage-us.sitecorecloud.io/v2/orders/{{order_ref}}/consumers",
+									"protocol": "https",
+									"host": [
+										"api-engage-us",
+										"sitecorecloud",
+										"io"
+									],
+									"path": [
+										"v2",
+										"orders",
+										"{{order_ref}}",
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get.  Order Consumers",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n    {\n        \"title\": \"Ms\",\n        \"firstName\": \"pass2\",\n        \"lastName\": \"Oreilly\",\n        \"gender\": \"female\"\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-engage-us.sitecorecloud.io/v2/orders/58c4decf-c64c-4a31-861c-f620ca5925a6/consumers",
+									"protocol": "https",
+									"host": [
+										"api-engage-us",
+										"sitecorecloud",
+										"io"
+									],
+									"path": [
+										"v2",
+										"orders",
+										"58c4decf-c64c-4a31-861c-f620ca5925a6",
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete  Order Consumer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n /*       {\n            \"href\": \"https://api-engage-us.sitecorecloud.io/v2/orderConsumers/04cc055c-bcf6-4a0c-9e40-894a911d4384\"\n        },\n        {\n            \"href\": \"https://api-engage-us.sitecorecloud.io/v2/orderConsumers/0772a906-ea0e-4896-89c8-9f4463e6ca3f\"\n        },\n        {\n            \"href\": \"https://api-engage-us.sitecorecloud.io/v2/orderConsumers/4ff92d34-dbaa-4c4a-885a-7c2201001005\"\n        },\n        {\n            \"href\": \"https://api-engage-us.sitecorecloud.io/v2/orderConsumers/a3dc10fa-222e-4552-9aa6-6771ace51449\"\n        },\n        {\n            \"href\": \"https://api-engage-us.sitecorecloud.io/v2/orderConsumers/caccb256-d189-4854-8ca7-d10471fd01f0\"\n        }\n\n        */",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api-engage-us.sitecorecloud.io/v2/orderConsumers/a3dc10fa-222e-4552-9aa6-6771ace51449",
+									"protocol": "https",
+									"host": [
+										"api-engage-us",
+										"sitecorecloud",
+										"io"
+									],
+									"path": [
+										"v2",
+										"orderConsumers",
+										"a3dc10fa-222e-4552-9aa6-6771ace51449"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/v2/orders/{{order_ref}}?expand=true",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v2",
+										"orders",
+										"{{order_ref}}"
+									],
+									"query": [
+										{
+											"key": "expand",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order Item - flight",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"order_item_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n          \"type\": \"FLIGHT\",\n          \"ref\": \"2da4d113-99a8-4a2d-9ca9-646bd1346362\",\n          \"createdAt\": \"2022-09-27T15:55:33.532Z\",\n          \"modifiedAt\": \"2022-09-27T15:55:33.532Z\",\n          \"productId\": \"EZE-MAD\",\n          \"price\": 707,\n          \"quantity\": 1,\n          \"currencyCode\": \"EUR\",\n          \"originalPrice\": 707,\n          \"originalCurrencyCode\": \"EUR\",\n          \"referenceId\": \"KL874H-ADT-3\",\n          \"status\": \"CONFIRMED\",\n          \"name\": \"EZE-MAD Flight (ADT)\",\n          \"channel\": \"WEB\",\n          \"orderedAt\": \"2022-09-27T03:51:51.770Z\",\n          \"passengerTypeCode\": \"ADT\",\n          \"flightSegments\": [\n            {\n              \"origin\": \"EZE\",\n              \"destination\": \"MAD\",\n              \"originDestination\": \"EZE-MAD\",\n              \"departureDateTime\": \"2023-03-23T14:15:00.000Z\",\n              \"arrivalDateTime\": \"2023-03-24T06:05:00.000Z\",\n              \"carrier\": \"IB\",\n              \"fareClass\": \"Economy\",\n              \"id\": \"KL874H-ADT-1-IB6856\",\n              \"flightNumber\": \"6856\"\n            }\n          ],\n          \"consumerTypeCode\": \"ADT\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders/{{order_ref}}/orderItems",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders",
+										"{{order_ref}}",
+										"orderItems"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order Item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"order_item_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n          \"type\": \"FLIGHT\",\n          \"ref\": \"2eb64cc0-2b17-4136-a12f-7a2c15caed5f\",\n          \"createdAt\": \"2021-01-12T15:55:33.532Z\",\n          \"modifiedAt\": \"2021-01-12T15:55:33.532Z\",\n          \"productId\": \"HKG-HND\",\n          \"price\": 798,\n          \"quantity\": 2,\n          \"currencyCode\": \"HKD\",\n          \"originalPrice\": 798,\n          \"originalCurrencyCode\": \"HKD\",\n          \"referenceId\": \"JHFI78-ADT-1\",\n          \"status\": \"CONFIRMED\",\n          \"name\": \"HKG-HND Flight (ADT)\",\n          \"channel\": \"AIRPORT_KIOSK\",\n          \"orderedAt\": \"2020-12-01T03:51:51.770Z\",\n          \"passengerTypeCode\": \"ADT\",\n          \"flightSegments\": [\n            {\n              \"origin\": \"HKG\",\n              \"destination\": \"HND\",\n              \"originDestination\": \"HKG-HND\",\n              \"departureDateTime\": \"2021-01-18T23:40:00.000Z\",\n              \"arrivalDateTime\": \"2021-01-19T04:55:00.000Z\",\n              \"carrier\": \"UO\",\n              \"fareClass\": \"Economy\",\n              \"fareFamily\": \"Fun\",\n              \"id\": \"JHFI78-ADT-1-UO624\",\n              \"flightNumber\": \"624\",\n              \"bookingClass\": \"V\"\n            }\n          ],\n          \"consumerTypeCode\": \"ADT\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orderItems/791839c9-d98a-44b0-928f-a6ffd2c8e5c3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orderItems",
+										"791839c9-d98a-44b0-928f-a6ffd2c8e5c3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Order Item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"order_item_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n                \"href\": \"https://api-us.boxever.com/v2/orderItems/791839c9-d98a-44b0-928f-a6ffd2c8e5c3\",\n                \"ref\": \"791839c9-d98a-44b0-928f-a6ffd2c8e5c3\",\n                \"order\": {\n                    \"href\": \"https://api-us.boxever.com/v2/orders/b8c47ce7-ac15-463f-9267-3431bd6231cc\"\n                },\n                \"createdAt\": \"2023-08-29T15:00:01.873Z\",\n                \"modifiedAt\": \"2023-08-29T15:00:01.873Z\",\n                \"orderedAt\": \"2023-08-29T15:00:01.665Z\",\n                \"type\": \"BET\",\n                \"productId\": \"BET_539\",\n                \"price\": 7.00,\n                \"currencyCode\": \"USD\",\n                \"referenceId\": \"BET_539\",\n                \"status\": \"PURCHASED\",\n                \"name\": \"Man Utd vs. Arsenal\",\n                \"quantity\": 1,\n                \"channel\": \"WEB\",\n                \"sku\": \"BET_539\",\n                \"category\": \"football\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orderItems/2eb64cc0-2b17-4136-a12f-7a2c15caed5f",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orderItems",
+										"2eb64cc0-2b17-4136-a12f-7a2c15caed5f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order Item(bag)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"order_item_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n          \"type\": \"BAG\",\n          \"productId\": \"PB40\",\n          \"price\": 530,\n          \"quantity\": 1,\n          \"currencyCode\": \"HKD\",\n          \"referenceId\": \"JHFI78\",\n          \"status\": \"PURCHASED\",\n          \"language\": \"KO\",\n          \"name\": \"PB40\",\n          \"channel\": \"WEB\",\n          \"orderedAt\": \"2020-12-11T06:09:54.864Z\",\n          \"itemId\": \"0_0_BAG\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders/{{order_ref}}/orderItems",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders",
+										"{{order_ref}}",
+										"orderItems"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Locate Orders",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"href\", jsonData.items[0].href);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders?referenceId=AFL69P",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "referenceId",
+											"value": "AFL69P"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"order_ref\", jsonData.ref);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"href\": \"https://api-engage-us.sitecorecloud.io/v2/orders/34bd99f0-b9b3-4f8c-aa63-be5369b2d3f2\",\n    \"ref\": \"34bd99f0-b9b3-4f8c-aa63-be5369b2d3f2\",\n    \"createdAt\": \"2024-06-17T14:57:55.048Z\",\n    \"modifiedAt\": \"2024-06-17T15:23:04.159Z\",\n    \"orderedAt\": \"2022-02-17T10:42:20.210Z\",\n    \"currencyCode\": \"USD\",\n    \"price\": 506,\n    \"referenceId\": \"ORDER_780\",\n    \"paymentType\": \"Card\",\n    \"cardType\": \"Mastercard\",\n    \"pointOfSale\": \"default\",\n    \"channel\": \"WEB\",\n    \"status\": \"PURCHASED\"\n}\n\n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/v2/orders/34bd99f0-b9b3-4f8c-aa63-be5369b2d3f2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"v2",
+										"orders",
+										"34bd99f0-b9b3-4f8c-aa63-be5369b2d3f2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Order consumer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n{\n    \"firstName\": \"Betty\",\n    \"lastName\": \"Draper\",\n    \"guest\": {\n       \"href\": \"https://api.boxever.com/v2/guests/{{guest_ref}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders/{{order_ref}}/consumers",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders",
+										"{{order_ref}}",
+										"consumers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Order Contact Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "\n\n{\n    \"title\": \"Mr\",\n    \"firstName\": \"Cormac\",\n    \"lastName\": \"Hampson\",\n    \"gender\": \"male\",\n    \"emails\": [\n        \"cormac.hampson@boxever.com\"\n    ],\n    \"guest\": {\n        \"href\": \"https://api.boxever.com/v2/guests/60d34578-9b17-4334-93d3-ec2fa6853f42\"\n    }\n}' \n\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orderContacts/1ddaa0e9-e6cf-4f91-830f-eedb8896177d",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orderContacts",
+										"1ddaa0e9-e6cf-4f91-830f-eedb8896177d"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Order Contact",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{password}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{username}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\n        \"email\": \"bettydraper@gmail.com\",\n        \"firstName\": \"Betty\",\n        \"lastName\": \"Draper\"\n      }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/{{version}}/orders/{{order_ref}}/contacts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"{{version}}",
+										"orders",
+										"{{order_ref}}",
+										"contacts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Audience Sync",
+			"item": [
+				{
+					"name": "1. Trigger Audience Sync",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"batchFlowRef\", jsonData.ref);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flowRef\": \"79e62c55-293f-4a5b-8a01-3f94f22d5b7e\",\n    \"segmentRef\": \"c171cc71-b583-43e0-b675-9d7a915cef46\",\n    \"datasetDate\": \"2023-07-31T00:00:00.000Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{version}}/batchFlowsTrigger",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{version}}",
+								"batchFlowsTrigger"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "extPropensities",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{version}}/batchFlowsJob/{{batchFlowRef}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{version}}",
+								"batchFlowsJob",
+								"{{batchFlowRef}}"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Files",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{version}}/batchFlowOutput/{{batchFlowRef}}/files",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{version}}",
+								"batchFlowOutput",
+								"{{batchFlowRef}}",
+								"files"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
